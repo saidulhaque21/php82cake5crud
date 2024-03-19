@@ -1,0 +1,51 @@
+version: "3.1"
+services:
+
+  # CakePHP 4 Application
+  php82cake5crud:
+    container_name: php82cake5crud
+    build: ./build/php
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - "8255:80"
+    networks:
+      -  network_php82cake5crud
+ 
+
+  # MySQL database service
+  mysql_php82cake5cruddb:
+    container_name: mysql_php82cake5cruddb
+    build: ./build/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: RootPass123
+      MYSQL_USER: droot
+      MYSQL_PASSWORD: Pass123
+      MYSQL_DATABASE: myweb_db
+    ports:
+      - "3855:3306"
+    volumes:
+      - cakedb_data:/var/lib/mysql
+    restart: always
+    networks:
+      -  network_php82cake5crud
+  phpmyadmin_php82cake5crud:
+    build:
+      context: ./build/phpmyadmin
+      dockerfile: Dockerfile
+    container_name: phpmyadmin_php82cake5crud
+    depends_on:
+      - mysql_php82cake5cruddb
+    ports:
+      - "8251:80"
+    restart: always
+    networks:
+      - network_php82cake5crud
+
+volumes:
+  cakedb_data:
+
+# Newwork  
+networks:
+  network_php82cake5crud:
+    driver: bridge
