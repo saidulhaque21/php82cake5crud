@@ -32,7 +32,7 @@ open docker-compose file and cheange database user, pass, port etc if you want
 # Step 4: run compose 
 docker-compose up -d --build 
 
-# Step 5: install CakePHP 4
+# Step 5: install CakePHP 5
 To create a project, You need to read document: https://book.cakephp.org/5/en/installation.html 
 Now, go to container application directory  
 
